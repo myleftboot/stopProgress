@@ -22,7 +22,9 @@ var randomPosView = Ti.UI.createView({
 });
 
 randomPosView.addEventListener('touchstart', decrement);
+
 Ti.API.addEventListener('complete', function(e) {
+	clearInterval(progTimer);
 	progress.hide();
 	randomPosView.hide();
 });
@@ -35,7 +37,6 @@ function increment(e) {
 		randomPosView.top = Math.random() * height;
 	} 
 	else {
-		clearInterval(progTimer);
 		Ti.API.fireEvent('complete');
 		alert('No you cant');
 	}
@@ -44,8 +45,7 @@ function increment(e) {
 function decrement(e) {
 	if (progress.value <= 5) {
 		Ti.API.fireEvent('complete');
-		alert('Complete');
-		clearInterval(progTimer);
+		alert('Well Done!');
 	} else {
 		progress.fireEvent('update', {value:-15});
 	}
